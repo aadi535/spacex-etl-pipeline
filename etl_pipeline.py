@@ -1,7 +1,7 @@
 import pandas as pd
 from prefect import flow, task
 
-# ✅ Update the correct column name
+
 COLUMN_NAME = "Payload Mass (kg)"
 FILE_PATH = r"D:\NASA_Meteorite_Dashboard\spacex_launch_data_fixed.csv"
 
@@ -25,7 +25,7 @@ def transform(df):
             print(f"🚨 Error: Column '{COLUMN_NAME}' not found in dataset!")
             return None
         
-        # ✅ Convert to numeric, fill missing values with 0
+
         df[COLUMN_NAME] = pd.to_numeric(df[COLUMN_NAME], errors="coerce").fillna(0)
         
         print(f"✅ Data transformation complete. {len(df)} rows remaining.")
@@ -47,6 +47,5 @@ def etl_pipeline():
     df = transform(df)
     load(df)
 
-# Run the pipeline
 if __name__ == "__main__":
     etl_pipeline()
